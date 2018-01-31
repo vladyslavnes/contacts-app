@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import FormField from './components/formField/formFieldContainer'
-// import ErrorField from './components/errorField/errorFieldContainer'
+import ConfirmButton from './components/confirmButton/confirmButtonContainer'
 
 class App extends Component {
   render () {
@@ -13,6 +13,7 @@ class App extends Component {
         <FormField field='address' />
         <FormField field='postcode' type='number' />
         <FormField field='birthDate' type='date' />
+        <ConfirmButton />
       </div>
     )
   }

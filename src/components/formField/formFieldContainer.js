@@ -6,7 +6,8 @@ const mapStateToProps = (state, ownProps) => {
   console.log('state', state)
   console.log('ownProps', ownProps)
   return {
-    [ownProps.field]: state.main[ownProps.field],
+    [ownProps.field]: state.main.user[ownProps.field].value,
+    required: state.main.user[ownProps.field].isRequired,
     error: state.main.errors[ownProps.field],
     ...ownProps
   }

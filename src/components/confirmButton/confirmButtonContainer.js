@@ -1,25 +1,21 @@
 import { connect } from 'react-redux'
-import { changeStateProps } from '../../actions'
-import formField from './formField'
+import { checkValues } from '../../actions'
+import confirmButton from './confirmButton'
 
-const mapStateToProps = (state, ownProps) => {
-  console.log('state', state)
-  console.log('ownProps', ownProps)
-  return {
-    [ownProps.field]: state.main[ownProps.field],
-    error: state.main.errors[ownProps.field],
-    ...ownProps
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  checkValues,
+  state,
+  ...ownProps
+})
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    changeStateProps: (prop, value) => {
-      dispatch(changeStateProps(prop, value))
+    checkValues: (errors) => {
+      dispatch(checkValues(errors))
     }
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps)(formField)
+  mapDispatchToProps)(confirmButton)
