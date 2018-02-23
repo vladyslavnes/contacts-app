@@ -26,7 +26,7 @@ let defaultState = {
     birthDate: {
       value: '',
       isRequired: true
-    },
+    }
   },
   errors: {
     name: '',
@@ -41,12 +41,12 @@ let defaultState = {
 const main = (state = defaultState, action) => {
   switch (action.type) {
     case 'CHANGE_STATE_PROPS':
-      console.log('data in reducer', action.state)
       return update(state, {
         user: {
+          // set store field with corresponding variable
           [action.state.prop]: {
             value: {$set: action.state.value}
-          },
+          }
         },
         errors: {
           [action.state.prop]: {$set: ''}
@@ -54,7 +54,6 @@ const main = (state = defaultState, action) => {
       })
 
     case 'SHOW_FORM_ERROR':
-      console.log('error in field',action.error.field, action.error.message)
       return update(state, {
         errors: {
           [action.error.field]: {$set: action.error.message}
@@ -62,7 +61,6 @@ const main = (state = defaultState, action) => {
       })
 
     case 'CHECK_FORM_VALUES':
-      console.log('error in field',action.errors, action.errors)
       return update(state, {
         canSave: {$set: action.canSave}
       })

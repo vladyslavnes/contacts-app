@@ -3,9 +3,8 @@ import { changeStateProps } from '../../actions'
 import formField from './formField'
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('state', state)
-  console.log('ownProps', ownProps)
   return {
+    // return only form field value needed for this component
     [ownProps.field]: state.main.user[ownProps.field].value,
     required: state.main.user[ownProps.field].isRequired,
     error: state.main.errors[ownProps.field],

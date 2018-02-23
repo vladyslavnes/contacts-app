@@ -1,42 +1,50 @@
 export default {
   name: name => {
-    if (name.match(/^[a-zA-Z\d\s]{5,}$/)) {
-      return true
-    } else return 'Your name should be longer than 5 characters and only alpha-numerical values are supported'
+    if (!name.match(/^[a-zA-Z\s]{5,}$/)) {
+      return 'Your name should be longer than 5 characters and contain letters only'
+    } else if (!name) {
+      return 'This field is required'
+    } else return true
   },
 
   email: email => {
-    
-    if (email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-      return true
-    } else return 'Please enter a correct email address'
+    if (!email.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
+      return 'Please enter a correct email address'
+    } else if (!email) {
+      return 'This field is required'
+    } else return true
   },
 
   phone: phoneNumber => {
-    if (phoneNumber === '' && phoneNumber.length <= 15 && phoneNumber.length >= 9 && phoneNumber.match(/^\+?\d+(-\d+)*$/)) {
-      return true
-    } else return 'Please enter your phone number in international format'
+    // Standard phone number is longer than 8 chars and shorter than 16
+    if (phoneNumber.length > 15 || phoneNumber.length < 9) {
+      return 'The standard phone number is 9-15 digits long'
+    } else if (!phoneNumber.match(/^\+?\d+(-\d+)*$/)) {
+      return 'Please enter your phone number in international format'
+    } else return true
   },
-  
+
   address: address => {
-      let addressArray = address.split(',').map(el => el.trim())
-      if (addressArray[0] === '' && (addressArray.length || (addressArray.length === 4 && !isNaN(+addressArray[3])))) {
-        return true
-      } else return 'Please enter your address in format: Country, City, Street, house number'
+    if (!address.match(/\d* [a-zA-z]* St\./)) {
+      return 'Please enter your address (E.g: 253 Cherry St.).'
+    } else return true
   },
 
   postcode: postcode => {
     if (postcode.length < 25 && postcode.length > 3) {
       return true
-    } else return "Your postcode should be a number 3 to 25 digits long"
+    } else return 'Your postcode should be a number 3 to 25 digits long'
   },
 
   birthDate: dateString => {
-     let date = new Date(dateString),
-     year = date.getFullYear()
-      console.log('current year',(new Date()).getFullYear(),year - 5)
-     if ((new Date()).getFullYear() < year - 5) {
-        return 'We do not serve people below 5 years and people from future'
-     } else return true
-    },
+    let year = (new Date(dateString)).getFullYear()
+    let now = new Date()
+    // if date not given or complains the rules
+    if (now.getFullYear() - 5 <= year) {
+      return 'We do not serve people younger than 5 years and people from future'
+    } else if (isNaN(year)) {
+      return 'This field is required'
+    } else return true
+
+  }
 }
