@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import ErrorField from '../errorField/errorFieldContainer'
 import Typography from 'material-ui/Typography'
+import TextField from 'material-ui/TextField'
 
 export default class FormField extends Component {
   constructor (props) {
@@ -12,10 +12,6 @@ export default class FormField extends Component {
     }
   }
 
-  componentDidMount() {
-    this.changeValue({target: {value: this.state.value}})
-  }
-
   changeValue ({target: {value}}) {
     this.props.changeStateProps(this.props.field, value)
     this.setState({value}) // Set input value - single source of truth
@@ -23,11 +19,20 @@ export default class FormField extends Component {
 
   render () {
     return (
-      <div className='field'>
-        <Typography gutterBottom={true} type='display1'>{this.props.field}</Typography>
-        <input type={this.props.type || 'text'} value={this.state.value} required={this.props.required} onChange={this.changeValue} />
-        <ErrorField field={this.props.field} />
-      </div>
+      <form>
+        <TextField
+          label={this.props.field}
+          value={this.state.value}
+          onChange={this.changeValue}
+          type={this.props.type || 'text'}
+          required={this.props.required}
+          InputLabelProps={{
+            shrink: true
+          }}
+          margin='normal'
+        />
+        <Typography color='error'>{this.props.error}</Typography>
+      </form>
     )
   }
 }

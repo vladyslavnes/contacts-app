@@ -3,30 +3,12 @@ import update from 'immutability-helper'
 let defaultState = {
   canSave: false,
   user: {
-    name: {
-      value: '',
-      isRequired: true
-    },
-    email: {
-      value: '',
-      isRequired: true
-    },
-    phone: {
-      value: '',
-      isRequired: false
-    },
-    address: {
-      value: '',
-      isRequired: false
-    },
-    postcode: {
-      value: '',
-      isRequired: true
-    },
-    birthDate: {
-      value: '',
-      isRequired: true
-    }
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    postcode: '',
+    birthDate: ''
   },
   errors: {
     name: '',
@@ -45,7 +27,7 @@ const main = (state = defaultState, action) => {
         user: {
           // set store field with corresponding variable
           [action.state.prop]: {
-            value: {$set: action.state.value}
+            $set: action.state.value
           }
         },
         errors: {
@@ -62,7 +44,8 @@ const main = (state = defaultState, action) => {
 
     case 'CHECK_FORM_VALUES':
       return update(state, {
-        canSave: {$set: action.canSave}
+        canSave: {$set: action.canSave},
+        errors: {$set: action.errors}
       })
     default:
       return state

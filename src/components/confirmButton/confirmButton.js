@@ -7,8 +7,8 @@ export default class ConfirmButtton extends Component {
     return (
       <div>
         <br />
-        <Button raised color='primary' onClick={e => this.props.checkValues(this.props.state.main.errors)}>Confirm</Button>
-        {this.props.state.main.canSave ? <Typography color='primary' type='display1'>Everything saved</Typography> : <Typography color='error' type='display1' >Could not save the data because of errors. Please check all fields again.</Typography>}
+        <Button raised color='primary' onClick={e => this.props.checkValues(this.props.state.main.user)}>Confirm</Button>
+        {this.props.state.main.canSave ? <Typography color='primary' type='display1'>Everything saved</Typography> : <Typography color='error' type='display1'>Please fill in the data.</Typography>}
       </div>
     )
   }

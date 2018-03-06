@@ -1,39 +1,30 @@
 import validityChecks from '../helpers/validityChecks'
 export const changeStateProps = (prop, value) => {
-  
-  let validity = validityChecks[prop](value)
-  console.log(validity)
-
-  if (validity === true) { // if there's no error
-    return {
-      type: 'CHANGE_STATE_PROPS', // change store value
-      state: {
-        prop,
-        value
-      }
-    }
-  }
-
-  return { // otherwise
-    type: 'SHOW_FORM_ERROR', // raise error action
-    error: {
-      message: validity,
-      field: prop
+  return {
+    type: 'CHANGE_STATE_PROPS', // change store value
+    state: {
+      prop,
+      value
     }
   }
 }
 
-export const checkValues = errors => {
+export const checkValues = (props) => {
+  let errors = []
   let canSave = true
-  for (let error in errors) {
-    console.log(errors[error])
-    if (errors[error]) { // if any eror occurs, form will not be confirmed
+  console.log('props in checkValues', props)
+  for (let prop in props) {
+    const validity = validityChecks[prop](props[prop])
+    console.log(validity)
+    if (validity !== true) {
+      errors[prop] = validity
       canSave = false
     }
   }
 
   return {
     type: 'CHECK_FORM_VALUES',
+    errors,
     canSave
   }
 }

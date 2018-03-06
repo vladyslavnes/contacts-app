@@ -1,17 +1,19 @@
 export default {
   name: name => {
-    if (!name.match(/^[a-zA-Z\s]{5,}$/)) {
-      return 'Your name should be longer than 5 characters and contain letters only'
-    } else if (!name) {
+    console.log('name', name)
+    if (!name) {
       return 'This field is required'
+    } else if (!name.match(/^[a-zA-Z\s]{5,}$/)) {
+      return 'Your name should be longer than 5 characters and contain letters only'
     } else return true
   },
 
   email: email => {
-    if (!email.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
-      return 'Please enter a correct email address'
-    } else if (!email) {
+    if (!email) {
       return 'This field is required'
+    // eslint-disable-next-line
+    } else if (!email.match(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i)) {
+      return 'Please enter a correct email address'
     } else return true
   },
 
@@ -38,13 +40,11 @@ export default {
 
   birthDate: dateString => {
     let year = (new Date(dateString)).getFullYear()
-    let now = new Date()
     // if date not given or complains the rules
-    if (now.getFullYear() - 5 <= year) {
+    if ((new Date()).getFullYear() - 5 <= year) {
       return 'We do not serve people younger than 5 years and people from future'
-    } else if (isNaN(year)) {
+    } else if (isNaN(+year)) {
       return 'This field is required'
     } else return true
-
   }
 }
